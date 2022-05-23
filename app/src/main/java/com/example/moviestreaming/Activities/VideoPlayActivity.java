@@ -27,6 +27,7 @@ public class VideoPlayActivity extends AppCompatActivity {
 
         player.setSource(Uri.parse(ShowDetailMovieActivity.LINK_MOVIE));
         player.setAutoPlay(true);
+
         player.start();
 
 

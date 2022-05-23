@@ -3,14 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     tools:context=".Activities.VideoPlayActivity">
 
 
     <com.halilibo.bettervideoplayer.BetterVideoPlayer
         android:id="@+id/videoPlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bvp_showTotalDuration="true"
+        app:bvp_showBottomProgressBar="true"
+        app:bvp_loadingStyle="WanderingCubes"
+
+        />
 
 
 </RelativeLayout>

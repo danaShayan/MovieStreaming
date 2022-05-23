@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MovieStreaming</string>
+    <string name="movie_streaming">Movie Streaming</string>
+    <string name="todo">todo</string>
+    <string name="top_movie_imdb">Top Movie IMDb</string>
+    <string name="arrow"><![CDATA[more >]]></string>
+    <string name="new_movie">New Movie</string>
+    <string name="popular_movie">Popular Movie</string>
+    <string name="animation">Animation</string>
+    <string name="genre">Genre</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="profile_account">Profile Account</string>
+    <string name="email">Email :</string>
+    <string name="phone">Phone :</string>
+    <string name="director">Director: </string>
+    <string name="published">Published: </string>
+    <string name="series">Series</string>
+    <string name="name">Name:</string>
+    <string name="action">Action</string>
+    <string name="description">Description :</string>
+    <string name="cast">Cast :</string>
+    <string name="similar_movie">Similar Movie :</string>
+    <string name="episodes">Episodes :</string>
+    <string name="similar_series">Similar Series</string>
+</resources>

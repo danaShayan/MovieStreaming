@@ -9,14 +9,26 @@ import android.widget.TextView;
 
 import com.example.moviestreaming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 public class ShowDetailsSeriesActivity extends AppCompatActivity {
 
 
-    TextView name, director, published, time, rate, genre, description;
+    public static final String ID_DETAIL_ITEM = "";
+    public static String NAME_DETAIL_ITEM = "name";
+    public static String DIRECTOR_DETAIL_ITEM = "director";
+    public static String RATE_IMDB_DETAIL_ITEM = "rate_imdb";
+    public static String TIME_DETAIL_ITEM = "time";
+    public static String PUBLISHED_DETAIL_ITEM = "published";
+    public static String IMG_DETAIL_ITEM = "img";
+    Bundle bundle;
+
+
+    TextView name, director, published, time, rate, description;
     ImageView back, download, comment, img_movie;
     FloatingActionButton btn_play;
     RecyclerView cast, similar, seasons;
+    int id;
 
 
     @Override
@@ -26,7 +38,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
 
 
         init();
-
+        bundle();
     }
 
     private void init() {
@@ -36,7 +48,6 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         published = findViewById(R.id.published);
         time = findViewById(R.id.time_movie);
         rate = findViewById(R.id.rate_movie);
-        genre = findViewById(R.id.genre);
         description = findViewById(R.id.description);
 
         back = findViewById(R.id.back);
@@ -48,5 +59,16 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         cast = findViewById(R.id.cast_recyclerView);
         similar = findViewById(R.id.similar_recyclerView);
 
+    }
+
+    private void bundle() {
+        bundle = getIntent().getExtras();
+        id = Integer.parseInt(bundle.getString(ID_DETAIL_ITEM));
+        name.setText(bundle.getString(NAME_DETAIL_ITEM));
+        director.setText(new StringBuilder("Director: " + bundle.getString(DIRECTOR_DETAIL_ITEM)));
+        published.setText(new StringBuilder("Episodes: " + bundle.getString(PUBLISHED_DETAIL_ITEM)));
+        time.setText(new StringBuilder("Seasons: " + bundle.getString(TIME_DETAIL_ITEM)));
+        rate.setText(new StringBuilder("IMDb: " + bundle.getString(RATE_IMDB_DETAIL_ITEM)));
+        Picasso.get().load(bundle.getString(IMG_DETAIL_ITEM)).into(img_movie);
     }
 }

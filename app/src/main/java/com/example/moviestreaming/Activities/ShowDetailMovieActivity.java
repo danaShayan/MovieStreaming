@@ -122,10 +122,13 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShowDetailMovieActivity.this, VideoPlayActivity.class);
-                intent.putExtra("link_movie", LINK_MOVIE);
-                startActivity(intent);
 
+                if (!ShowDetailMovieActivity.LINK_MOVIE.equals("")) {
+                    Intent intent = new Intent(ShowDetailMovieActivity.this, VideoPlayActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ShowDetailMovieActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

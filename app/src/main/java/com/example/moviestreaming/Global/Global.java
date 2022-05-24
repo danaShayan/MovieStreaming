@@ -652,10 +652,7 @@ public class Global {
                 Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         requestQueue.add(request);
-
-
     }
 
     public void getCast(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<Cast> list) {

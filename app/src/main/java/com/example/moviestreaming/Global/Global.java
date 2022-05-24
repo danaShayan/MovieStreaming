@@ -620,7 +620,7 @@ public class Global {
         requestQueue.add(request);
     }
 
-    public void getShowDetail(Context context, RequestQueue requestQueue, String url, TextView description, FloatingActionButton btnPlay) {
+    public void getShowDetail(Context context, RequestQueue requestQueue, String url, TextView description) {
 
         this.requestQueue = requestQueue;
         String LINK = link_show_detail + url;
@@ -633,13 +633,9 @@ public class Global {
                     JSONArray jsonArray = response.getJSONArray("movie_streaming");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String id = jsonObject.getString("id");
-                        String id_item = jsonObject.getString("id_item");
                         String descriptionTXT = jsonObject.getString("description");
                         ShowDetailMovieActivity.LINK_MOVIE = jsonObject.getString("link_movie");
-
                         description.setText(descriptionTXT);
-
 
                     }
                 } catch (JSONException e) {

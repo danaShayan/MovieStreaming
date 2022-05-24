@@ -24,9 +24,7 @@ public class VideoPlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_play);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         player = findViewById(R.id.videoPlayer);
-
 
         player.setSource(Uri.parse(ShowDetailMovieActivity.LINK_MOVIE));
         ShowDetailMovieActivity.LINK_MOVIE = "";

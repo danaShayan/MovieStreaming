@@ -54,7 +54,6 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                 Intent intent = new Intent(context, ShowDetailsSeriesActivity.class);
 
                 intent.putExtra(ShowDetailsSeriesActivity.ID_DETAIL_ITEM, data.get(position).getId());
-                Log.e("id id", data.get(position).getId());
                 intent.putExtra(ShowDetailsSeriesActivity.NAME_DETAIL_ITEM, data.get(position).getName());
                 intent.putExtra(ShowDetailsSeriesActivity.DIRECTOR_DETAIL_ITEM, data.get(position).getDirector());
                 intent.putExtra(ShowDetailsSeriesActivity.PUBLISHED_DETAIL_ITEM, data.get(position).getPublished());

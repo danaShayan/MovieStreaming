@@ -59,7 +59,7 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
 
         init();
         bundle();
-        global.getShowDetail(this, requestQueue, id + "", description, btn_play);
+        global.getShowDetail(this, requestQueue, id + "", description);
         getCast();
         playMovie();
 

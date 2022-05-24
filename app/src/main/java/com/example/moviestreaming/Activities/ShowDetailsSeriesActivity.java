@@ -3,10 +3,16 @@ package com.example.moviestreaming.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.example.moviestreaming.Global.Global;
 import com.example.moviestreaming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -22,7 +28,8 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
     public static String PUBLISHED_DETAIL_ITEM = "published";
     public static String IMG_DETAIL_ITEM = "img";
     Bundle bundle;
-
+    Global global;
+    RequestQueue requestQueue;
 
     TextView name, director, published, time, rate, description;
     ImageView back, download, comment, img_movie;
@@ -39,9 +46,14 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
 
         init();
         bundle();
+        global.getShowDetail(this, requestQueue, id + "", description);
+        playMovie();
+
     }
 
     private void init() {
+        global = new Global();
+        requestQueue = Volley.newRequestQueue(this);
 
         name = findViewById(R.id.name_movie);
         director = findViewById(R.id.name_director);
@@ -70,5 +82,19 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         time.setText(new StringBuilder("Seasons: " + bundle.getString(TIME_DETAIL_ITEM)));
         rate.setText(new StringBuilder("IMDb: " + bundle.getString(RATE_IMDB_DETAIL_ITEM)));
         Picasso.get().load(bundle.getString(IMG_DETAIL_ITEM)).into(img_movie);
+    }
+
+    private void playMovie() {
+
+        btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!ShowDetailMovieActivity.LINK_MOVIE.equals("")) {
+                    startActivity(new Intent(ShowDetailsSeriesActivity.this, VideoPlayActivity.class));
+                } else {
+                    Toast.makeText(ShowDetailsSeriesActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

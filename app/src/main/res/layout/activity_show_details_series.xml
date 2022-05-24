@@ -199,7 +199,7 @@
                     android:id="@+id/txt_seasons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_description"
+                    android:layout_below="@+id/description"
                     android:layout_marginTop="8dp"
                     android:text="Seasons :"
                     android:textColor="@color/white"

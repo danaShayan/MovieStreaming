@@ -1,6 +1,7 @@
 package com.example.moviestreaming.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -12,10 +13,15 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.moviestreaming.Adapter.CastAdapter;
 import com.example.moviestreaming.Global.Global;
+import com.example.moviestreaming.Model.Cast;
 import com.example.moviestreaming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowDetailsSeriesActivity extends AppCompatActivity {
 
@@ -35,6 +41,8 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
     ImageView back, download, comment, img_movie;
     FloatingActionButton btn_play;
     RecyclerView cast, similar, seasons;
+    List<Cast> list = new ArrayList<>();
+    CastAdapter castAdapter;
     int id;
 
 
@@ -48,6 +56,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         bundle();
         global.getShowDetail(this, requestQueue, id + "", description);
         playMovie();
+        getCast();
 
     }
 
@@ -97,4 +106,14 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getCast() {
+
+        cast.setHasFixedSize(true);
+        cast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        castAdapter = new CastAdapter(this, list);
+        global.getCast(this, requestQueue, id + "", cast, list);
+        cast.setAdapter(castAdapter);
+    }
+
 }

@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviestreaming.Adapter.CastAdapter;
+import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Global.Global;
 import com.example.moviestreaming.Model.Cast;
+import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -43,6 +45,10 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
     RecyclerView cast, similar, seasons;
     List<Cast> list = new ArrayList<>();
     CastAdapter castAdapter;
+
+
+    SeasonAdapter seasonAdapter;
+    List<Season> seasonList = new ArrayList<>();
     int id;
 
 
@@ -57,6 +63,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         global.getShowDetail(this, requestQueue, id + "", description);
         playMovie();
         getCast();
+        getSeason();
 
     }
 
@@ -115,5 +122,16 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         global.getCast(this, requestQueue, id + "", cast, list);
         cast.setAdapter(castAdapter);
     }
+
+    private void getSeason() {
+
+        seasons.setHasFixedSize(true);
+        seasons.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        seasonAdapter = new SeasonAdapter(this, seasonList);
+        global.getSeason(this, requestQueue, id + "", seasons, seasonList);
+        seasons.setAdapter(seasonAdapter);
+
+    }
+
 
 }

@@ -24,6 +24,7 @@ import com.example.moviestreaming.Adapter.GenreAdapter;
 import com.example.moviestreaming.Adapter.GenreCompleteAdapter;
 import com.example.moviestreaming.Adapter.NewMovieAdapter;
 import com.example.moviestreaming.Adapter.PopularMovieAdapter;
+import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Adapter.SeriesAdapter;
 import com.example.moviestreaming.Adapter.SeriesCompleteAdapter;
 import com.example.moviestreaming.Adapter.SliderAdapter;
@@ -34,6 +35,7 @@ import com.example.moviestreaming.Model.Cast;
 import com.example.moviestreaming.Model.Genre;
 import com.example.moviestreaming.Model.NewMovie;
 import com.example.moviestreaming.Model.PopularMovie;
+import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.Model.Series;
 import com.example.moviestreaming.Model.Slider;
 import com.example.moviestreaming.Model.TopMovieIMDb;
@@ -100,6 +102,12 @@ public class Global {
     List<Cast> castList = new ArrayList<>();
     CastAdapter castAdapter;
     String linkCast = "http:/192.168.43.187/moviestreaming/getCast.php?id_item=";
+
+
+    //Season
+    List<Season> seasonList = new ArrayList<>();
+    SeasonAdapter seasonAdapter;
+    String linkSeason = "http://192.168.43.187/moviestreaming/getSeason.php?id_item=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -693,5 +701,49 @@ public class Global {
         requestQueue.add(request);
     }
 
+    public void getSeason(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<Season> list) {
 
+        this.requestQueue = requestQueue;
+        this.seasonList = list;
+        this.LINK = linkSeason + url;
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, LINK, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("movie_streaming");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Season season = new Season();
+
+                        String id = jsonObject.getString("id");
+                        String id_item = jsonObject.getString("id_item");
+                        String number_season = jsonObject.getString("number_season");
+                        String count_episodes = jsonObject.getString("count_episodes");
+                        String link_img_season = jsonObject.getString("link_img_season");
+
+                        season.setId(id);
+                        season.setId_item(id_item);
+                        season.setCount_episodes(count_episodes);
+                        season.setNumber_season(number_season);
+                        season.setLink_img_seaon(link_img_season);
+
+                        list.add(season);
+                        seasonAdapter = new SeasonAdapter(context, list);
+                        recyclerView.setAdapter(seasonAdapter);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(request);
+    }
 }

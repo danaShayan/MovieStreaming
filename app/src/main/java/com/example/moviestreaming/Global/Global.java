@@ -1,10 +1,7 @@
 package com.example.moviestreaming.Global;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.moviestreaming.Activities.ShowDetailMovieActivity;
-import com.example.moviestreaming.Activities.VideoPlayActivity;
 import com.example.moviestreaming.Adapter.AnimationAdapter;
 import com.example.moviestreaming.Adapter.CastAdapter;
+import com.example.moviestreaming.Adapter.EpisodeAdapter;
 import com.example.moviestreaming.Adapter.GenreAdapter;
 import com.example.moviestreaming.Adapter.GenreCompleteAdapter;
 import com.example.moviestreaming.Adapter.NewMovieAdapter;
@@ -32,6 +29,7 @@ import com.example.moviestreaming.Adapter.TopMovieIMDbAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbCompleteAdapter;
 import com.example.moviestreaming.Model.Animation;
 import com.example.moviestreaming.Model.Cast;
+import com.example.moviestreaming.Model.Episode;
 import com.example.moviestreaming.Model.Genre;
 import com.example.moviestreaming.Model.NewMovie;
 import com.example.moviestreaming.Model.PopularMovie;
@@ -39,7 +37,6 @@ import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.Model.Series;
 import com.example.moviestreaming.Model.Slider;
 import com.example.moviestreaming.Model.TopMovieIMDb;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,6 +105,11 @@ public class Global {
     List<Season> seasonList = new ArrayList<>();
     SeasonAdapter seasonAdapter;
     String linkSeason = "http://192.168.43.187/moviestreaming/getSeason.php?id_item=";
+
+    //Episode
+    List<Episode> episodeList = new ArrayList<>();
+    EpisodeAdapter episodeAdapter;
+    String linkEpisode = "http://192.168.43.187/moviestreaming/getEpisode.php?id_season=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -746,4 +748,49 @@ public class Global {
         });
         requestQueue.add(request);
     }
+
+    public void getEpisode(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<Episode> list) {
+
+        this.requestQueue = requestQueue;
+        this.episodeList = list;
+        this.linkEpisode = linkEpisode + url;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, linkEpisode, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("movie_streaming");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Episode episode = new Episode();
+
+                        episode.setDetail(jsonObject.getString("detail"));
+                        episode.setId(jsonObject.getString("id"));
+                        episode.setId_season(jsonObject.getString("id_season"));
+                        episode.setLink_img(jsonObject.getString("link_img"));
+                        episode.setName(jsonObject.getString("name"));
+                        episode.setLink_play_episode(jsonObject.getString("link_play_episode"));
+                        episode.setTime(jsonObject.getString("time"));
+
+                        episodeList.add(episode);
+                        episodeAdapter = new EpisodeAdapter(context, episodeList);
+                        recyclerView.setAdapter(episodeAdapter);
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(request);
+    }
+
 }

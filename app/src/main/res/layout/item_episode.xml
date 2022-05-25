@@ -87,16 +87,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="9"
             android:layout_below="@id/linear_episode"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="9">
 
             <LinearLayout
-                android:layout_weight="8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:layout_weight="8"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
@@ -112,7 +112,7 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/time_top_movie_imdb"
+                    android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
@@ -130,10 +130,11 @@
 
 
             <ImageView
-                android:layout_weight="1"
+                android:id="@+id/download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/ic_baseline_get_app_24"
                 tools:ignore="ContentDescription" />
 

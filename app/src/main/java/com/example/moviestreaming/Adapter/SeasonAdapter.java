@@ -1,6 +1,7 @@
 package com.example.moviestreaming.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moviestreaming.Activities.EpisodesActivity;
+import com.example.moviestreaming.Interface.ItemClickListener;
 import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.R;
 import com.squareup.picasso.Picasso;
@@ -41,6 +44,18 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         holder.season_number.setText(new StringBuilder("Season " + data.get(position).getNumber_season()));
         Picasso.get().load(data.get(position).getLink_img_seaon()).into(holder.img);
 
+
+        holder.setListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EpisodesActivity.class);
+                intent.putExtra(EpisodesActivity.ID_SEASON, data.get(position).getId());
+                intent.putExtra(EpisodesActivity.SEASON_NUMBER, data.get(position).getNumber_season());
+                context.startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -48,10 +63,16 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         return data.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img;
         TextView season_number, count_episodes;
+
+        ItemClickListener listener;
+
+        public void setListener(ItemClickListener listener) {
+            this.listener = listener;
+        }
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +81,13 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
             season_number = itemView.findViewById(R.id.number_season);
             count_episodes = itemView.findViewById(R.id.count_episodes);
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view);
         }
     }
 }

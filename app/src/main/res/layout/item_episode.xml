@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="12dp">
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/layout_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/img_episode"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:alpha="0.8"
+                android:scaleType="centerCrop"
+                android:src="@drawable/drawer"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_baseline_play_circle_filled_24"
+                tools:ignore="ContentDescription" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_episode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_play"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/name_episode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:maxLength="35"
+                android:text="this is episode one in breaking bad movie"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/detail_episode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="9"
+                android:fontFamily="monospace"
+                android:gravity="end|right"
+                android:text="S01 E01"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="9"
+            android:layout_below="@id/linear_episode"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/yellow"
+                    app:srcCompat="@drawable/ic_baseline_access_time_24"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/time_top_movie_imdb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:text="2h 32m"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,RtlHardcoded" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_baseline_get_app_24"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

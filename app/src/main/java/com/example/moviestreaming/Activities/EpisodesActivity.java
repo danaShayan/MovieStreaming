@@ -21,6 +21,7 @@ public class EpisodesActivity extends AppCompatActivity {
 
     public static final String ID_SEASON = "";
     public static final String SEASON_NUMBER = "season_number";
+    public static final String LINK_MOVIE = "link_movie";
 
     Bundle bundle;
     Global global;

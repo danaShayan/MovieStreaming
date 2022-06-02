@@ -55,6 +55,7 @@ public class TopMovieIMDbCompleteAdapter extends RecyclerView.Adapter<TopMovieIM
             public void onClick(View view) {
                 Intent intent = new Intent(context, ShowDetailMovieActivity.class);
                 intent.putExtra(ShowDetailMovieActivity.ID_DETAIL_ITEM, data.get(position).getId());
+                intent.putExtra(ShowDetailMovieActivity.CATEGORY_NAME, data.get(position).getCategory_name());
                 intent.putExtra(ShowDetailMovieActivity.NAME_DETAIL_ITEM, data.get(position).getName());
                 intent.putExtra(ShowDetailMovieActivity.DIRECTOR_DETAIL_ITEM, data.get(position).getDirector());
                 intent.putExtra(ShowDetailMovieActivity.RATE_IMDB_DETAIL_ITEM, data.get(position).getRate_imdb());

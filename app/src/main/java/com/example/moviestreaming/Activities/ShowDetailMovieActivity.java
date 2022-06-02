@@ -1,10 +1,6 @@
 
 package com.example.moviestreaming.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviestreaming.Adapter.CastAdapter;
+import com.example.moviestreaming.Adapter.RandomAdapter;
 import com.example.moviestreaming.Global.Global;
+import com.example.moviestreaming.Model.AllInformation;
 import com.example.moviestreaming.Model.Cast;
 import com.example.moviestreaming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +30,7 @@ import java.util.List;
 public class ShowDetailMovieActivity extends AppCompatActivity {
 
     public static String ID_DETAIL_ITEM = "";
+    public static final String CATEGORY_NAME = "category_name";
     public static String NAME_DETAIL_ITEM = "name";
     public static String DIRECTOR_DETAIL_ITEM = "director";
     public static String RATE_IMDB_DETAIL_ITEM = "rate_imdb";
@@ -49,6 +52,12 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
     CastAdapter castAdapter;
     Bundle bundle;
     int id;
+    String categoryName;
+
+
+    // Random Movie
+    List<AllInformation> listRandom = new ArrayList<>();
+    RandomAdapter randomAdapter;
 
 
     @Override
@@ -93,6 +102,7 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
     private void bundle() {
         bundle = getIntent().getExtras();
         id = Integer.parseInt(bundle.getString(ID_DETAIL_ITEM));
+        categoryName = bundle.getString(CATEGORY_NAME);
         name.setText(bundle.getString(NAME_DETAIL_ITEM));
         director.setText(new StringBuilder("Director: " + bundle.getString(DIRECTOR_DETAIL_ITEM)));
         published.setText(new StringBuilder("Published: " + bundle.getString(PUBLISHED_DETAIL_ITEM)));
@@ -100,6 +110,7 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
         rate.setText(new StringBuilder("IMDb " + bundle.getString(RATE_IMDB_DETAIL_ITEM)));
         Picasso.get().load(bundle.getString(IMG_DETAIL_ITEM)).into(img_movie);
         genre.setText(bundle.getString("genre"));
+
 
         if (genre.length() == 0) {
             genre.setText("No Genre Set");

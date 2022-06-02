@@ -1,17 +1,22 @@
 package com.example.moviestreaming.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moviestreaming.Activities.ShowDetailMovieActivity;
+import com.example.moviestreaming.Activities.VideoPlayActivity;
 import com.example.moviestreaming.Model.Episode;
 import com.example.moviestreaming.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +51,18 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.MyViewHo
         Picasso.get().load(data.get(position).getLink_img()).into(holder.img);
 
 
+        holder.btn_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDetailMovieActivity.LINK_MOVIE = data.get(position).getLink_play_episode();
+                if (!ShowDetailMovieActivity.LINK_MOVIE.equals("")) {
+                    Intent intent = new Intent(context, VideoPlayActivity.class);
+                    context.startActivity(intent);
+                } else {
+                    Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -57,6 +74,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.MyViewHo
 
         ImageView img, download;
         TextView name, detail, time;
+        FloatingActionButton btn_play;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -67,7 +85,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.MyViewHo
             name = itemView.findViewById(R.id.name_episode);
             detail = itemView.findViewById(R.id.detail_episode);
             time = itemView.findViewById(R.id.time);
+            btn_play = itemView.findViewById(R.id.play);
+
 
         }
+
     }
 }

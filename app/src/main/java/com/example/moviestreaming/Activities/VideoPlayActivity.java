@@ -1,13 +1,10 @@
 package com.example.moviestreaming.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moviestreaming.R;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
@@ -16,7 +13,6 @@ public class VideoPlayActivity extends AppCompatActivity {
 
 
     BetterVideoPlayer player;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -153,7 +153,6 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
         similar.setHasFixedSize(true);
         randomAdapter = new RandomAdapter(listRandom, this);
         similar.setAdapter(randomAdapter);
-        Toast.makeText(this, categoryName, Toast.LENGTH_SHORT).show();
         global.getRandom(this, requestQueue, categoryName, similar, listRandom);
     }
 

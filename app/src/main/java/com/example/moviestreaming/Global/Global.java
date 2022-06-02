@@ -22,6 +22,7 @@ import com.example.moviestreaming.Adapter.GenreCompleteAdapter;
 import com.example.moviestreaming.Adapter.NewMovieAdapter;
 import com.example.moviestreaming.Adapter.PopularMovieAdapter;
 import com.example.moviestreaming.Adapter.RandomAdapter;
+import com.example.moviestreaming.Adapter.RandomSeriesAdapter;
 import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Adapter.SeriesAdapter;
 import com.example.moviestreaming.Adapter.SeriesCompleteAdapter;
@@ -116,6 +117,7 @@ public class Global {
     //Random
     List<AllInformation> randomList = new ArrayList<>();
     RandomAdapter randomAdapter;
+    RandomSeriesAdapter randomSeriesAdapter;
     String randomLink = "http://192.168.43.187/moviestreaming/getAllInformationHome.php?category_name=";
 
 
@@ -849,6 +851,64 @@ public class Global {
                     randomList.add(allInformation);
                     randomAdapter = new RandomAdapter(randomList, context);
                     recyclerView.setAdapter(randomAdapter);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+        });
+        requestQueue.add(request);
+    }
+
+    public void getRandomSeries(final Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<AllInformation> list) {
+
+        this.requestQueue = requestQueue;
+        this.LINK = randomLink + url;
+        this.randomList = list;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, LINK, null
+                , response -> {
+            try {
+
+
+                JSONArray jsonArray = response.getJSONArray("movie_streaming");
+
+
+                int random = (int) (Math.random() * jsonArray.length());
+
+                if (random < 4)
+                    random = random + 4;
+                if (random >= jsonArray.length())
+                    random = jsonArray.length() - 1;
+
+                for (int i = random - 4; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    AllInformation allInformation = new AllInformation();
+
+                    String id = jsonObject.getString("id");
+                    String name = jsonObject.getString("name");
+                    String link_img = jsonObject.getString("link_img");
+                    String time = jsonObject.getString("time");
+                    String published = jsonObject.getString("published");
+                    String director = jsonObject.getString("director");
+                    String rate_imdb = jsonObject.getString("rate_imdb");
+                    String category_name = jsonObject.getString("catagory_name");
+                    String rank = jsonObject.getString("rank");
+
+
+                    allInformation.setId(id);
+                    allInformation.setName(name);
+                    allInformation.setLink_img(link_img);
+                    allInformation.setTime(time);
+                    allInformation.setPublished(published);
+                    allInformation.setDirector(director);
+                    allInformation.setRate_imdb(rate_imdb);
+                    allInformation.setCategory_name(category_name);
+
+                    randomList.add(allInformation);
+                    randomSeriesAdapter = new RandomSeriesAdapter(randomList, context);
+                    recyclerView.setAdapter(randomSeriesAdapter);
 
                 }
             } catch (JSONException e) {

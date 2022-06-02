@@ -57,6 +57,7 @@ public class SeriesCompleteAdapter extends RecyclerView.Adapter<SeriesCompleteAd
                 Intent intent = new Intent(context, ShowDetailsSeriesActivity.class);
 
                 intent.putExtra(ShowDetailsSeriesActivity.ID_DETAIL_ITEM, data.get(position).getId());
+                intent.putExtra(ShowDetailsSeriesActivity.CATEGORY_NAME, data.get(position).getCategory_name());
                 intent.putExtra(ShowDetailsSeriesActivity.NAME_DETAIL_ITEM, data.get(position).getName());
                 intent.putExtra(ShowDetailsSeriesActivity.DIRECTOR_DETAIL_ITEM, data.get(position).getDirector());
                 intent.putExtra(ShowDetailsSeriesActivity.PUBLISHED_DETAIL_ITEM, data.get(position).getPublished());

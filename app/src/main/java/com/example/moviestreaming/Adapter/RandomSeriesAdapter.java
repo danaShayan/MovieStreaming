@@ -13,19 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviestreaming.Activities.ShowDetailsSeriesActivity;
 import com.example.moviestreaming.Interface.ItemClickListener;
-import com.example.moviestreaming.Model.Series;
+import com.example.moviestreaming.Model.AllInformation;
 import com.example.moviestreaming.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHolder> {
+public class RandomSeriesAdapter extends RecyclerView.Adapter<RandomSeriesAdapter.MyViewHolder> {
 
-
-    List<Series> data;
+    List<AllInformation> data;
     Context context;
 
-    public SeriesAdapter(Context context, List<Series> data) {
+    public RandomSeriesAdapter(List<AllInformation> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -36,19 +35,19 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_series, parent, false);
         return new MyViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.time.setText(data.get(position).getTime());
+
         holder.name.setText(data.get(position).getName());
-        Picasso.get().load(data.get(position).getLink_img()).into(holder.img);
+        holder.time.setText(data.get(position).getTime());
+        Picasso.get().load(data.get(position).getLink_img()).into(holder.img_movie);
+
 
         holder.setListener(new ItemClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(context, ShowDetailsSeriesActivity.class);
 
                 intent.putExtra(ShowDetailsSeriesActivity.ID_DETAIL_ITEM, data.get(position).getId());
@@ -60,11 +59,9 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                 intent.putExtra(ShowDetailsSeriesActivity.RATE_IMDB_DETAIL_ITEM, data.get(position).getRate_imdb());
                 intent.putExtra(ShowDetailsSeriesActivity.IMG_DETAIL_ITEM, data.get(position).getLink_img());
                 context.startActivity(intent);
-
+                
             }
         });
-
-
     }
 
     @Override
@@ -72,10 +69,10 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
         return data.size();
     }
 
-
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        ImageView img_movie;
         TextView name, time;
-        ImageView img;
 
         ItemClickListener listener;
 
@@ -83,15 +80,15 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
             this.listener = listener;
         }
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            time = itemView.findViewById(R.id.time_top_movie_imdb);
+            img_movie = itemView.findViewById(R.id.img_top_movie_imdb);
             name = itemView.findViewById(R.id.name_top_movie_imdb);
-            img = itemView.findViewById(R.id.img_top_movie_imdb);
+            time = itemView.findViewById(R.id.time_top_movie_imdb);
 
             itemView.setOnClickListener(this);
-
 
         }
 

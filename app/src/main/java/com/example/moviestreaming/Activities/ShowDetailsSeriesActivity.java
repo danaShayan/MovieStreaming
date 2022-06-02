@@ -1,9 +1,5 @@
 package com.example.moviestreaming.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +7,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.moviestreaming.Adapter.CastAdapter;
+import com.example.moviestreaming.Adapter.RandomSeriesAdapter;
 import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Global.Global;
+import com.example.moviestreaming.Model.AllInformation;
 import com.example.moviestreaming.Model.Cast;
 import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.R;
@@ -29,6 +31,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
 
 
     public static final String ID_DETAIL_ITEM = "";
+    public static final String CATEGORY_NAME = "category_name";
     public static String NAME_DETAIL_ITEM = "name";
     public static String DIRECTOR_DETAIL_ITEM = "director";
     public static String RATE_IMDB_DETAIL_ITEM = "rate_imdb";
@@ -50,7 +53,12 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
     SeasonAdapter seasonAdapter;
     List<Season> seasonList = new ArrayList<>();
     int id;
+    String categoryName;
 
+
+    //Random
+    List<AllInformation> listAllInformation = new ArrayList<>();
+    RandomSeriesAdapter randomSeriesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         playMovie();
         getCast();
         getSeason();
+        getRandom();
 
     }
 
@@ -92,6 +101,7 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
     private void bundle() {
         bundle = getIntent().getExtras();
         id = Integer.parseInt(bundle.getString(ID_DETAIL_ITEM));
+        categoryName = bundle.getString(CATEGORY_NAME);
         name.setText(bundle.getString(NAME_DETAIL_ITEM));
         director.setText(new StringBuilder("Director: " + bundle.getString(DIRECTOR_DETAIL_ITEM)));
         published.setText(new StringBuilder("Episodes: " + bundle.getString(PUBLISHED_DETAIL_ITEM)));
@@ -130,7 +140,15 @@ public class ShowDetailsSeriesActivity extends AppCompatActivity {
         seasonAdapter = new SeasonAdapter(this, seasonList);
         global.getSeason(this, requestQueue, id + "", seasons, seasonList);
         seasons.setAdapter(seasonAdapter);
+    }
 
+
+    private void getRandom() {
+        similar.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        similar.setHasFixedSize(true);
+        randomSeriesAdapter = new RandomSeriesAdapter(listAllInformation, this);
+        similar.setAdapter(randomSeriesAdapter);
+        global.getRandomSeries(this, requestQueue, categoryName, similar, listAllInformation);
     }
 
 

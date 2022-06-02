@@ -71,6 +71,7 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
         global.getShowDetail(this, requestQueue, id + "", description);
         getCast();
         playMovie();
+        getRandom();
 
     }
 
@@ -145,6 +146,15 @@ public class ShowDetailMovieActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void getRandom() {
+        similar.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        similar.setHasFixedSize(true);
+        randomAdapter = new RandomAdapter(listRandom, this);
+        similar.setAdapter(randomAdapter);
+        Toast.makeText(this, categoryName, Toast.LENGTH_SHORT).show();
+        global.getRandom(this, requestQueue, categoryName, similar, listRandom);
     }
 
 }

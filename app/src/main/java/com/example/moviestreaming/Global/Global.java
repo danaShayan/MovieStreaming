@@ -26,6 +26,7 @@ import com.example.moviestreaming.Adapter.RandomSeriesAdapter;
 import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Adapter.SeriesAdapter;
 import com.example.moviestreaming.Adapter.SeriesCompleteAdapter;
+import com.example.moviestreaming.Adapter.ShowGenreAdapter;
 import com.example.moviestreaming.Adapter.SliderAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbCompleteAdapter;
@@ -38,6 +39,7 @@ import com.example.moviestreaming.Model.NewMovie;
 import com.example.moviestreaming.Model.PopularMovie;
 import com.example.moviestreaming.Model.Season;
 import com.example.moviestreaming.Model.Series;
+import com.example.moviestreaming.Model.ShowGenre;
 import com.example.moviestreaming.Model.Slider;
 import com.example.moviestreaming.Model.TopMovieIMDb;
 
@@ -119,6 +121,11 @@ public class Global {
     RandomAdapter randomAdapter;
     RandomSeriesAdapter randomSeriesAdapter;
     String randomLink = "http://192.168.43.187/moviestreaming/getAllInformationHome.php?category_name=";
+
+    // Show Global
+    List<ShowGenre> showGenreList = new ArrayList<>();
+    ShowGenreAdapter showGenreAdapter;
+    String linkShowGenre = "http://192.168.43.187/moviestreaming/get_show_genre.php?genre_name=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -916,6 +923,69 @@ public class Global {
             }
         }, error -> {
         });
+        requestQueue.add(request);
+    }
+
+    public void getShowGenre(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<ShowGenre> list) {
+
+        this.requestQueue = requestQueue;
+        String LINK = linkShowGenre + url;
+        this.showGenreList = list;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, LINK, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("movie_streaming");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        ShowGenre showGenre = new ShowGenre();
+
+                        String id = jsonObject.getString("id");
+                        String name = jsonObject.getString("name");
+                        String link_img = jsonObject.getString("link_img");
+                        String time = jsonObject.getString("time");
+                        String published = jsonObject.getString("published");
+                        String director = jsonObject.getString("director");
+                        String rate_imdb = jsonObject.getString("rate_imdb");
+                        String category_name = jsonObject.getString("catagory_name");
+                        String genre = jsonObject.getString("genre_name");
+
+                        showGenre.setId(id);
+                        showGenre.setName(name);
+                        showGenre.setLink_img(link_img);
+                        showGenre.setTime(time);
+                        showGenre.setPublished(published);
+                        showGenre.setDirector(director);
+                        showGenre.setRate_imdb(rate_imdb);
+                        showGenre.setCategory_name(category_name);
+                        showGenre.setGenre(genre);
+
+
+                        showGenreList.add(showGenre);
+                        showGenreAdapter = new ShowGenreAdapter(context, showGenreList);
+                        recyclerView.setAdapter(showGenreAdapter);
+
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         requestQueue.add(request);
     }
 

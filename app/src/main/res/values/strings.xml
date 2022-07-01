@@ -9,7 +9,6 @@
     <string name="animation">Animation</string>
     <string name="genre">Genre</string>
     <string name="home">Home</string>
-    <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="profile_account">Profile Account</string>
     <string name="email">Email :</string>
@@ -24,4 +23,6 @@
     <string name="similar_movie">Similar Movie :</string>
     <string name="episodes">Episodes :</string>
     <string name="similar_series">Similar Series</string>
+    <string name="search">Search</string>
+    <string name="title">title</string>
 </resources>

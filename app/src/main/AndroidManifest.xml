@@ -14,7 +14,9 @@
         android:theme="@style/Theme.MovieStreaming"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Activities.ShowGenreActivity"></activity>
+        <activity android:name=".Activities.ShowSearchActivity"></activity>
+        <activity android:name=".Activities.SearchActivity" />
+        <activity android:name=".Activities.ShowGenreActivity" />
         <activity android:name=".Activities.EpisodesActivity" />
         <activity android:name=".Activities.VideoPlayActivity" />
         <activity android:name=".Activities.ShowDetailsSeriesActivity" />

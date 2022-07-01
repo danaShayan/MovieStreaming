@@ -1,13 +1,5 @@
 package com.example.moviestreaming.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -269,7 +269,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 float X_TRANSLATION = X_OFF_SET - X_OFF_SET_CHANGE;
                 parent.setTranslationX(X_TRANSLATION);
 
-
             }
 
             @Override
@@ -342,8 +341,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.nav_home:
+                startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+                break;
+            case R.id.nav_search:
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+                break;
+            case R.id.nav_genre:
+                startActivity(new Intent(HomeActivity.this, GenreActivity.class));
+                break;
+        }
+
+
         return true;
     }
 

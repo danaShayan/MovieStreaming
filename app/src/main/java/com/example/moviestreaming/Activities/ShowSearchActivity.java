@@ -46,18 +46,33 @@ public class ShowSearchActivity extends AppCompatActivity {
         edit_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchList.removeAll(searchList);
-
-                global.getSearch(ShowSearchActivity.this, requestQueue, SearchActivity.CATE_NAME + "&&name=" + query, recyclerView_search, searchList);
-                searchAdapter = new SearchAdapter(ShowSearchActivity.this, searchList);
-                recyclerView_search.setAdapter(searchAdapter);
-
-
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+
+                searchList.removeAll(searchList);
+
+
+                if (newText.isEmpty()) {
+                    searchAdapter = new SearchAdapter(ShowSearchActivity.this, searchList);
+                    recyclerView_search.setAdapter(searchAdapter);
+
+                } else {
+                    if (!SearchActivity.TITLE.equals("All Movie"))
+                        global.getSearch(ShowSearchActivity.this, requestQueue, SearchActivity.CATE_NAME + "&&name=" + newText, recyclerView_search, searchList);
+                    else
+                        global.getAllSearch(ShowSearchActivity.this, requestQueue, newText, recyclerView_search, searchList);
+
+
+                    searchAdapter = new SearchAdapter(ShowSearchActivity.this, searchList);
+                    recyclerView_search.setAdapter(searchAdapter);
+
+                }
+
+
                 return false;
             }
         });

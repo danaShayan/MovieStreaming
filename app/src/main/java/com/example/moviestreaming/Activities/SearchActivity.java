@@ -12,7 +12,7 @@ import com.example.moviestreaming.R;
 public class SearchActivity extends AppCompatActivity {
 
 
-    CardView topNewMovie, series, animation, newMovie;
+    CardView topNewMovie, series, animation, newMovie, all;
 
     public static String CATE_NAME = "cate_name";
     public static String TITLE = "title";
@@ -68,13 +68,24 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                TITLE = "All Movie";
+                startActivity(new Intent(SearchActivity.this, ShowSearchActivity.class));
+            }
+        });
+
 
     }
 
     private void init() {
+        all = findViewById(R.id.card_all);
         topNewMovie = findViewById(R.id.card_top_movie_imdb);
         series = findViewById(R.id.card_series);
         animation = findViewById(R.id.card_animation);
         newMovie = findViewById(R.id.card_new_movie);
+
     }
 }

@@ -34,7 +34,7 @@
 
     </RelativeLayout>
 
-    <EditText
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/edit_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +45,7 @@
         android:padding="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+
         android:textSize="14sp" />
 
     <androidx.recyclerview.widget.RecyclerView

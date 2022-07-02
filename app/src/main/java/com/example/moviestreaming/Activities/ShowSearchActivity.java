@@ -2,25 +2,78 @@ package com.example.moviestreaming.Activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.example.moviestreaming.Adapter.SearchAdapter;
+import com.example.moviestreaming.Global.Global;
+import com.example.moviestreaming.Model.AllInformation;
 import com.example.moviestreaming.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowSearchActivity extends AppCompatActivity {
 
 
     TextView title;
+    androidx.appcompat.widget.SearchView edit_search;
+    RecyclerView recyclerView_search;
+    SearchAdapter searchAdapter;
+    List<AllInformation> searchList = new ArrayList<>();
+    Global global;
+    RequestQueue requestQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_search);
 
-        title = findViewById(R.id.name);
+
+        init();
+
         title.setText(SearchActivity.TITLE);
-        Toast.makeText(this, SearchActivity.CATE_NAME, Toast.LENGTH_SHORT).show();
+
+        recyclerView_search.setHasFixedSize(true);
+        recyclerView_search.setLayoutManager(new GridLayoutManager(this, 3));
+
+        edit_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchList.removeAll(searchList);
+
+                global.getSearch(ShowSearchActivity.this, requestQueue, SearchActivity.CATE_NAME + "&&name=" + query, recyclerView_search, searchList);
+                searchAdapter = new SearchAdapter(ShowSearchActivity.this, searchList);
+                recyclerView_search.setAdapter(searchAdapter);
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
 
     }
+
+    private void init() {
+        global = new Global();
+        requestQueue = Volley.newRequestQueue(this);
+
+        title = findViewById(R.id.name);
+        edit_search = findViewById(R.id.edit_search);
+        recyclerView_search = findViewById(R.id.recyclerView_search);
+
+    }
+
+
 }

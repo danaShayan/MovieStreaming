@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CATE_NAME = "top_movie_imdb";
+                CATE_NAME = "top_movie_new";
                 TITLE = "Top Movie IMDb";
                 startActivity(new Intent(SearchActivity.this, ShowSearchActivity.class));
             }

@@ -23,6 +23,7 @@ import com.example.moviestreaming.Adapter.NewMovieAdapter;
 import com.example.moviestreaming.Adapter.PopularMovieAdapter;
 import com.example.moviestreaming.Adapter.RandomAdapter;
 import com.example.moviestreaming.Adapter.RandomSeriesAdapter;
+import com.example.moviestreaming.Adapter.SearchAdapter;
 import com.example.moviestreaming.Adapter.SeasonAdapter;
 import com.example.moviestreaming.Adapter.SeriesAdapter;
 import com.example.moviestreaming.Adapter.SeriesCompleteAdapter;
@@ -126,6 +127,11 @@ public class Global {
     List<ShowGenre> showGenreList = new ArrayList<>();
     ShowGenreAdapter showGenreAdapter;
     String linkShowGenre = "http://192.168.43.187/moviestreaming/get_show_genre.php?genre_name=";
+
+    //search
+    List<AllInformation> searchList = new ArrayList<>();
+    SearchAdapter searchAdapter;
+    String linkSearch = "http://192.168.43.187/moviestreaming/getSearch.php?category_name=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -989,5 +995,64 @@ public class Global {
         requestQueue.add(request);
     }
 
+    public void getSearch(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<AllInformation> list) {
 
+        this.searchList = list;
+        this.requestQueue = requestQueue;
+        this.linkSearch = linkSearch + url;
+
+        Log.e("Link", linkSearch);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, linkSearch, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("movie_streaming");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        AllInformation allInformation = new AllInformation();
+
+                        String id = jsonObject.getString("id");
+                        String name = jsonObject.getString("name");
+                        String link_img = jsonObject.getString("link_img");
+                        String time = jsonObject.getString("time");
+                        String published = jsonObject.getString("published");
+                        String director = jsonObject.getString("director");
+                        String rate_imdb = jsonObject.getString("rate_imdb");
+                        String category_name = jsonObject.getString("catagory_name");
+                        String rank = jsonObject.getString("rank");
+
+
+                        allInformation.setId(id);
+                        allInformation.setName(name);
+                        allInformation.setLink_img(link_img);
+                        allInformation.setTime(time);
+                        allInformation.setPublished(published);
+                        allInformation.setDirector(director);
+                        allInformation.setRate_imdb(rate_imdb);
+                        allInformation.setCategory_name(category_name);
+
+                        searchList.add(allInformation);
+                        searchAdapter = new SearchAdapter(context, searchList);
+                        recyclerView.setAdapter(searchAdapter);
+
+                        Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue.add(request);
+    }
 }

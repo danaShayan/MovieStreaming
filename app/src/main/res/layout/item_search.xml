@@ -37,6 +37,7 @@
             android:fontFamily="monospace"
             android:maxLength="16"
             android:padding="8dp"
+            android:singleLine="true"
             android:text="@string/movie_streaming"
             android:textColor="@color/white"
             android:textSize="14sp"

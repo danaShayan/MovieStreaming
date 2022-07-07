@@ -27,6 +27,9 @@ import com.example.moviestreaming.Adapter.NewMovieAdapter;
 import com.example.moviestreaming.Adapter.PopularMovieAdapter;
 import com.example.moviestreaming.Adapter.SeriesAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbAdapter;
+import com.example.moviestreaming.Database.DataSource.FavoriteRepository;
+import com.example.moviestreaming.Database.Local.FavoriteDataSource;
+import com.example.moviestreaming.Database.Local.RoomDatabaseApp;
 import com.example.moviestreaming.Global.Global;
 import com.example.moviestreaming.Model.Animation;
 import com.example.moviestreaming.Model.Genre;
@@ -120,7 +123,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         getDrawer();
         getMoreListener();
 
+        DBCreate();
+
+
     }
+
+    private void DBCreate() {
+
+
+        Global.roomDatabaseApp = RoomDatabaseApp.getInstance(this);
+        Global.favoriteRepository = FavoriteRepository.getInstance(FavoriteDataSource.getInstance(Global.roomDatabaseApp.favoriteDao()));
+
+
+    }
+
 
     private void init() {
 
@@ -356,6 +372,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_genre:
                 startActivity(new Intent(HomeActivity.this, GenreActivity.class));
+                break;
+            case R.id.nav_fav:
+                startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
                 break;
         }
 

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviestreaming.Activities.ShowDetailMovieActivity;
+import com.example.moviestreaming.Database.ModelDB.Favorite;
+import com.example.moviestreaming.Global.Global;
 import com.example.moviestreaming.Interface.ItemClickListener;
 import com.example.moviestreaming.Model.TopMovieIMDb;
 import com.example.moviestreaming.R;
@@ -69,6 +71,59 @@ public class TopMovieIMDbCompleteAdapter extends RecyclerView.Adapter<TopMovieIM
             }
         });
 
+
+        // condition Favorite
+
+        if (Global.favoriteRepository.isFavorite(Integer.parseInt(data.get(position).getId())) == 1)
+            holder.like.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else
+            holder.like.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Global.favoriteRepository.isFavorite(Integer.parseInt(data.get(position).getId())) != 1) {
+                    holder.like.setImageResource(R.drawable.ic_baseline_favorite_24);
+
+                    Favorite favorite = new Favorite();
+
+                    favorite.id = data.get(position).getId();
+                    favorite.category_name = data.get(position).getCategory_name();
+                    favorite.director = data.get(position).getDirector();
+                    favorite.genre_name = data.get(position).getGenre();
+                    favorite.link_img = data.get(position).getLink_img();
+                    favorite.name = data.get(position).getName();
+                    favorite.published = data.get(position).getPublished();
+                    favorite.rate_imdb = data.get(position).getRate_imdb();
+                    favorite.time = data.get(position).getTime();
+
+                    Global.favoriteRepository.insertFavoriteItem(favorite);
+                } else {
+                    holder.like.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+
+                    Favorite favorite = new Favorite();
+
+                    favorite.id = data.get(position).getId();
+                    favorite.category_name = data.get(position).getCategory_name();
+                    favorite.director = data.get(position).getDirector();
+                    favorite.genre_name = data.get(position).getGenre();
+                    favorite.link_img = data.get(position).getLink_img();
+                    favorite.name = data.get(position).getName();
+                    favorite.published = data.get(position).getPublished();
+                    favorite.rate_imdb = data.get(position).getRate_imdb();
+                    favorite.time = data.get(position).getTime();
+
+                    Global.favoriteRepository.deleteFavoriteItem(favorite);
+
+
+                }
+
+
+            }
+        });
+
+
     }
 
     @Override
@@ -79,7 +134,7 @@ public class TopMovieIMDbCompleteAdapter extends RecyclerView.Adapter<TopMovieIM
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, time, director, published, rate, rank;
-        ImageView img;
+        ImageView img, like;
 
         ItemClickListener listener;
 
@@ -94,6 +149,7 @@ public class TopMovieIMDbCompleteAdapter extends RecyclerView.Adapter<TopMovieIM
             name = itemView.findViewById(R.id.name_movie);
             rank = itemView.findViewById(R.id.rank_movie);
             img = itemView.findViewById(R.id.img_movie);
+            like = itemView.findViewById(R.id.like_movie);
             director = itemView.findViewById(R.id.name_director);
             published = itemView.findViewById(R.id.published);
             rate = itemView.findViewById(R.id.rate_movie);

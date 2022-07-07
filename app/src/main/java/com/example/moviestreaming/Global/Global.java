@@ -31,6 +31,8 @@ import com.example.moviestreaming.Adapter.ShowGenreAdapter;
 import com.example.moviestreaming.Adapter.SliderAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbAdapter;
 import com.example.moviestreaming.Adapter.TopMovieIMDbCompleteAdapter;
+import com.example.moviestreaming.Database.DataSource.FavoriteRepository;
+import com.example.moviestreaming.Database.Local.RoomDatabaseApp;
 import com.example.moviestreaming.Model.AllInformation;
 import com.example.moviestreaming.Model.Animation;
 import com.example.moviestreaming.Model.Cast;
@@ -53,8 +55,14 @@ import java.util.List;
 
 public class Global {
 
+    public static FavoriteRepository favoriteRepository;
+    public static RoomDatabaseApp roomDatabaseApp;
 
-    String LINK = "http://192.168.43.187/moviestreaming/getSlider.php";
+
+    String ip = "192.168.126.122";
+
+
+    String LINK = "http://" + ip + "/moviestreaming/getSlider.php";
     RequestQueue requestQueue;
     List<Slider> listSlider = new ArrayList<>();
     SliderAdapter sliderAdapter;
@@ -63,7 +71,7 @@ public class Global {
     //TopMovieIMDb
     List<TopMovieIMDb> listTopMovieIMDb = new ArrayList<>();
     TopMovieIMDbAdapter topMovieIMDbAdapter;
-    String link_home_information = "http://192.168.43.187/moviestreaming//getInformationHome.php?category_name=";
+    String link_home_information = "http://" + ip + "/moviestreaming//getInformationHome.php?category_name=";
 
 
     //New Movie
@@ -85,53 +93,53 @@ public class Global {
     // Genre
     List<Genre> listGenre = new ArrayList<>();
     GenreAdapter genreAdapter;
-    String link_genre = "http://192.168.43.187/moviestreaming/getGenre.php";
+    String link_genre = "http://" + ip + "/moviestreaming/getGenre.php";
 
     //Genre
     GenreCompleteAdapter genreCompleteAdapter;
 
 
     // All Top Movie IMDb
-    String link_all_information_home = "http://192.168.43.187/moviestreaming/getAllInformationHome.php?category_name=";
+    String link_all_information_home = "http://" + ip + "/moviestreaming/getAllInformationHome.php?category_name=";
     TopMovieIMDbCompleteAdapter topMovieIMDbCompleteAdapter;
     SeriesCompleteAdapter seriesCompleteAdapter;
 
 
     // Show_Detail
-    String link_show_detail = "http://192.168.43.187/moviestreaming/show_detail.php?id_item=";
+    String link_show_detail = "http://" + ip + "/moviestreaming/show_detail.php?id_item=";
 
 
     //Cast
     List<Cast> castList = new ArrayList<>();
     CastAdapter castAdapter;
-    String linkCast = "http:/192.168.43.187/moviestreaming/getCast.php?id_item=";
+    String linkCast = "http:/" + ip + "/moviestreaming/getCast.php?id_item=";
 
 
     //Season
     List<Season> seasonList = new ArrayList<>();
     SeasonAdapter seasonAdapter;
-    String linkSeason = "http://192.168.43.187/moviestreaming/getSeason.php?id_item=";
+    String linkSeason = "http://" + ip + "/moviestreaming/getSeason.php?id_item=";
 
     //Episode
     List<Episode> episodeList = new ArrayList<>();
     EpisodeAdapter episodeAdapter;
-    String linkEpisode = "http://192.168.43.187/moviestreaming/getEpisode.php?id_season=";
+    String linkEpisode = "http://" + ip + "/moviestreaming/getEpisode.php?id_season=";
 
     //Random
     List<AllInformation> randomList = new ArrayList<>();
     RandomAdapter randomAdapter;
     RandomSeriesAdapter randomSeriesAdapter;
-    String randomLink = "http://192.168.43.187/moviestreaming/getAllInformationHome.php?category_name=";
+    String randomLink = "http://" + ip + "/moviestreaming/getAllInformationHome.php?category_name=";
 
     // Show Global
     List<ShowGenre> showGenreList = new ArrayList<>();
     ShowGenreAdapter showGenreAdapter;
-    String linkShowGenre = "http://192.168.43.187/moviestreaming/get_show_genre.php?genre_name=";
+    String linkShowGenre = "http://" + ip + "/moviestreaming/get_show_genre.php?genre_name=";
 
     //search
     List<AllInformation> searchList = new ArrayList<>();
     SearchAdapter searchAdapter;
-    String linkSearch = "http://192.168.43.187/moviestreaming/getSearch.php?category_name=";
+    String linkSearch = "http://" + ip + "/moviestreaming/getSearch.php?category_name=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -1058,7 +1066,7 @@ public class Global {
 
     public void getAllSearch(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<AllInformation> list) {
 
-        String linkAllSearch = "http://192.168.43.187/moviestreaming/getAllSearch.php?name=";
+        String linkAllSearch = "http://" + ip + "/moviestreaming/getAllSearch.php?name=";
 
 
         this.searchList = list;

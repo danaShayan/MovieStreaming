@@ -134,7 +134,7 @@
             android:textStyle="bold"
             app:cursorColor="@color/yellow"
             app:cursorWidth="2dp"
-            app:hideLineWhenFilled="true"
+            app:hideLineWhenFilled="false"
             app:itemCount="4"
             app:itemHeight="48dp"
             app:itemRadius="4dp"

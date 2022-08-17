@@ -1,6 +1,7 @@
 package com.example.moviestreaming.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -35,10 +36,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     static String Phone = "";
     String url = "https://api.kavenegar.com/v1/6A335174704E68456C665A424C50566E41705874647873516970333559723757644649492B4B386B342F673D/verify/lookup.json?";
-    private int random_verify_code;
+    private static int random_verify_code;
 
     RequestQueue requestQueue;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +96,15 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 int code = Integer.parseInt(pinView.getText().toString());
-                if (code == 1111) {
+                if (code == random_verify_code) {
                     pinView.setLineColor(Color.GREEN);
+
+                    Intent intent = new Intent(VerifyPhoneActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     pinView.setLineColor(Color.RED);
+                    Toast.makeText(VerifyPhoneActivity.this, "Code is not Correct", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -109,11 +114,10 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     private void sendCodeVerify() {
         random_verify_code = (int) (Math.random() * 10000);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url + "receptor=" + Phone + "8&token=" + random_verify_code + "&template=movieStreamingApp", null, new Response.Listener<JSONObject>() {
+        Toast.makeText(this, Phone, Toast.LENGTH_SHORT).show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url + "receptor=" + Phone + "&token=" + random_verify_code + "&template=movieStreamingApp", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-
 
 
             }

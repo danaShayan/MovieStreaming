@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MovieStreaming</string>
     <string name="movie_streaming">Movie Streaming</string>
     <string name="todo">todo</string>
@@ -26,4 +26,20 @@
     <string name="search">Search</string>
     <string name="title">title</string>
     <string name="all_category">All Category</string>
+    <string name="watch_your_favorite_movie">Watch your favorite movie</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="emailRegister">Email</string>
+    <string name="phoneRegister">Phone</string>
+    <string name="password">Password</string>
+    <string name="have_an_account_loge_in">Have an account? Log in</string>
+    <string name="login">login</string>
+    <string name="have_no_account_register">Have no account? Register</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="verify_phone_number">Verify Phone Number</string>
+    <string name="verify_number">Verify Number</string>
+    <string name="send_code">Send Code</string>
+    <string name="retry">Retry</string>
+    <string name="send_again">Send Again</string>
+    <string name="check">Check</string>
 </resources>

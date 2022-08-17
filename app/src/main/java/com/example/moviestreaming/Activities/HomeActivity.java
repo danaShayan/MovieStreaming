@@ -125,7 +125,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         DBCreate();
 
-
     }
 
     private void DBCreate() {
@@ -136,7 +135,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-
 
     private void init() {
 
@@ -185,7 +183,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void getSlider() {
         global.getSlider(HomeActivity.this, requestQueue, "", slider_home, listSlider);
         tabs.setupWithViewPager(slider_home);
-
     }
 
     private void sliderTimer() {
@@ -375,6 +372,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_fav:
                 startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
+                break;
+            case R.id.nav_account:
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 break;
         }
 

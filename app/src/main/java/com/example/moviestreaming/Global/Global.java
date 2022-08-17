@@ -59,10 +59,9 @@ public class Global {
     public static RoomDatabaseApp roomDatabaseApp;
 
 
-    String ip = "192.168.126.122";
+    String ip = "http://moviestreamingapi.mywebcommunity.org";
 
-
-    String LINK = "http://" + ip + "/moviestreaming/getSlider.php";
+    String LINK = ip + "/getSlider.php";
     RequestQueue requestQueue;
     List<Slider> listSlider = new ArrayList<>();
     SliderAdapter sliderAdapter;
@@ -71,7 +70,7 @@ public class Global {
     //TopMovieIMDb
     List<TopMovieIMDb> listTopMovieIMDb = new ArrayList<>();
     TopMovieIMDbAdapter topMovieIMDbAdapter;
-    String link_home_information = "http://" + ip + "/moviestreaming//getInformationHome.php?category_name=";
+    String link_home_information = ip + "/getInformationHome.php?category_name=";
 
 
     //New Movie
@@ -93,53 +92,53 @@ public class Global {
     // Genre
     List<Genre> listGenre = new ArrayList<>();
     GenreAdapter genreAdapter;
-    String link_genre = "http://" + ip + "/moviestreaming/getGenre.php";
+    String link_genre = ip + "/getGenre.php";
 
     //Genre
     GenreCompleteAdapter genreCompleteAdapter;
 
 
     // All Top Movie IMDb
-    String link_all_information_home = "http://" + ip + "/moviestreaming/getAllInformationHome.php?category_name=";
+    String link_all_information_home = ip + "/getAllInformationHome.php?category_name=";
     TopMovieIMDbCompleteAdapter topMovieIMDbCompleteAdapter;
     SeriesCompleteAdapter seriesCompleteAdapter;
 
 
     // Show_Detail
-    String link_show_detail = "http://" + ip + "/moviestreaming/show_detail.php?id_item=";
+    String link_show_detail = ip + "/show_detail.php?id_item=";
 
 
     //Cast
     List<Cast> castList = new ArrayList<>();
     CastAdapter castAdapter;
-    String linkCast = "http:/" + ip + "/moviestreaming/getCast.php?id_item=";
+    String linkCast = ip + "/getCast.php?id_item=";
 
 
     //Season
     List<Season> seasonList = new ArrayList<>();
     SeasonAdapter seasonAdapter;
-    String linkSeason = "http://" + ip + "/moviestreaming/getSeason.php?id_item=";
+    String linkSeason = ip + "/getSeason.php?id_item=";
 
     //Episode
     List<Episode> episodeList = new ArrayList<>();
     EpisodeAdapter episodeAdapter;
-    String linkEpisode = "http://" + ip + "/moviestreaming/getEpisode.php?id_season=";
+    String linkEpisode = ip + "/getEpisode.php?id_season=";
 
     //Random
     List<AllInformation> randomList = new ArrayList<>();
     RandomAdapter randomAdapter;
     RandomSeriesAdapter randomSeriesAdapter;
-    String randomLink = "http://" + ip + "/moviestreaming/getAllInformationHome.php?category_name=";
+    String randomLink = ip + "/getAllInformationHome.php?category_name=";
 
     // Show Global
     List<ShowGenre> showGenreList = new ArrayList<>();
     ShowGenreAdapter showGenreAdapter;
-    String linkShowGenre = "http://" + ip + "/moviestreaming/get_show_genre.php?genre_name=";
+    String linkShowGenre = ip + "/get_show_genre.php?genre_name=";
 
     //search
     List<AllInformation> searchList = new ArrayList<>();
     SearchAdapter searchAdapter;
-    String linkSearch = "http://" + ip + "/moviestreaming/getSearch.php?category_name=";
+    String linkSearch = ip + "/getSearch.php?category_name=";
 
 
     public void getSlider(final Context context, RequestQueue requestQueue, String url, ViewPager viewPager, List<Slider> list) {
@@ -151,7 +150,7 @@ public class Global {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, LINK, null
                 , response -> {
             try {
-                JSONArray jsonArray = response.getJSONArray("slider");
+                JSONArray jsonArray = response.getJSONArray("movie_streaming");
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -162,12 +161,21 @@ public class Global {
                     String link_img = jsonObject.getString("link_img");
                     String time = jsonObject.getString("time");
                     String published = jsonObject.getString("published");
+                    String director = jsonObject.getString("director");
+                    String rate_imdb = jsonObject.getString("rate_imdb");
+                    String category_name = jsonObject.getString("catagory_name");
+                    String genre = jsonObject.getString("genre_name");
 
                     slider.setId(id);
                     slider.setName(name);
                     slider.setLink_img(link_img);
                     slider.setTime(time);
                     slider.setPublished(published);
+                    slider.setDirector(director);
+                    slider.setRate_imdb(rate_imdb);
+                    slider.setCategory_name(category_name);
+                    slider.setGenre(genre);
+
 
                     listSlider.add(slider);
                     sliderAdapter = new SliderAdapter(context, listSlider);
@@ -1066,7 +1074,7 @@ public class Global {
 
     public void getAllSearch(Context context, RequestQueue requestQueue, String url, RecyclerView recyclerView, List<AllInformation> list) {
 
-        String linkAllSearch = "http://" + ip + "/moviestreaming/getAllSearch.php?name=";
+        String linkAllSearch = ip + "/getAllSearch.php?name=";
 
 
         this.searchList = list;

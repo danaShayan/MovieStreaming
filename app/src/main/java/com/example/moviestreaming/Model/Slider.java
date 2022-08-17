@@ -1,7 +1,40 @@
 package com.example.moviestreaming.Model;
 
 public class Slider {
-    private String id, name, link_img, time, published;
+    private String id, name, link_img, time, published , director, rate_imdb, category_name, genre;
+
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getRate_imdb() {
+        return rate_imdb;
+    }
+
+    public void setRate_imdb(String rate_imdb) {
+        this.rate_imdb = rate_imdb;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     public String getId() {
         return id;

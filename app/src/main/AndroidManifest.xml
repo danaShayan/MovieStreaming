@@ -14,7 +14,15 @@
         android:theme="@style/Theme.MovieStreaming"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Activities.FavoriteActivity"></activity>
+        <activity android:name=".Activities.VerifyPhoneActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.FavoriteActivity" />
         <activity android:name=".Activities.ShowSearchActivity" />
         <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.ShowGenreActivity" />
@@ -27,13 +35,7 @@
         <activity android:name=".Activities.GenreActivity" />
         <activity
             android:name=".Activities.HomeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>
